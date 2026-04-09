@@ -1,0 +1,15 @@
+{
+  "actorSpecification": 1,
+  "name": "multisource-public-monitor",
+  "title": "Multi-source Public Monitor",
+  "description": "Scrapes public listings and posts from Wallapop, Facebook, Instagram and TikTok.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "./Dockerfile",
+  "input": "./src/input-schema.json",
+  "storages": {
+    "dataset": "default",
+    "keyValueStore": "default",
+    "requestQueue": "default"
+  }
+}

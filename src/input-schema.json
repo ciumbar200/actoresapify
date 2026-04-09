@@ -1,0 +1,74 @@
+{
+  "title": "Multi-source Public Monitor Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "sources": {
+      "title": "Sources",
+      "type": "array",
+      "description": "Enabled sources.",
+      "editor": "stringList",
+      "prefill": ["wallapop", "facebook", "instagram", "tiktok"],
+      "items": {
+        "type": "string",
+        "enum": ["wallapop", "facebook", "instagram", "tiktok"]
+      }
+    },
+    "queries": {
+      "title": "Queries",
+      "type": "array",
+      "description": "Search terms or usernames.",
+      "editor": "stringList",
+      "prefill": ["iphone"]
+    },
+    "location": {
+      "title": "Location",
+      "type": "object",
+      "description": "Optional location filter.",
+      "properties": {
+        "country": { "type": "string" },
+        "region": { "type": "string" },
+        "city": { "type": "string" },
+        "radiusKm": { "type": "number", "minimum": 0 }
+      }
+    },
+    "maxItemsPerSource": {
+      "title": "Max items per source",
+      "type": "integer",
+      "description": "Hard limit per source.",
+      "default": 30,
+      "minimum": 1,
+      "maximum": 500
+    },
+    "startUrls": {
+      "title": "Start URLs",
+      "type": "object",
+      "description": "Optional URL seeds by source.",
+      "properties": {
+        "wallapop": { "type": "array", "editor": "requestListSources" },
+        "facebook": { "type": "array", "editor": "requestListSources" },
+        "instagram": { "type": "array", "editor": "requestListSources" },
+        "tiktok": { "type": "array", "editor": "requestListSources" }
+      }
+    },
+    "proxy": {
+      "title": "Proxy",
+      "type": "object",
+      "description": "Apify proxy config.",
+      "properties": {
+        "useApifyProxy": { "type": "boolean", "default": true },
+        "apifyProxyGroups": {
+          "type": "array",
+          "editor": "stringList",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "debug": {
+      "title": "Debug logs",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": ["sources", "queries"]
+}

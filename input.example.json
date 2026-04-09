@@ -1,0 +1,22 @@
+{
+  "sources": ["wallapop", "facebook", "instagram", "tiktok"],
+  "queries": ["iphone"],
+  "location": {
+    "country": "ES",
+    "region": "Cataluna",
+    "city": "Barcelona",
+    "radiusKm": 20
+  },
+  "maxItemsPerSource": 20,
+  "startUrls": {
+    "wallapop": [],
+    "facebook": [],
+    "instagram": [],
+    "tiktok": []
+  },
+  "proxy": {
+    "useApifyProxy": true,
+    "apifyProxyGroups": []
+  },
+  "debug": false
+}

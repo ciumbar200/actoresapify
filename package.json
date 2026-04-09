@@ -1,0 +1,17 @@
+{
+  "name": "apify-multisource-public-monitor",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Apify actor for public monitoring across Wallapop, Facebook, Instagram and TikTok",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "apify": "^3.4.0",
+    "crawlee": "^3.11.2"
+  }
+}
