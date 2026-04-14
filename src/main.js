@@ -45,6 +45,7 @@ try {
     maxItemsPerSource,
     pushData: (item) => Actor.pushData(item),
   });
+  const sourceDiagnostics = [];
 
   const crawlerOptions = {
     proxyConfiguration,
@@ -71,23 +72,48 @@ try {
         log,
       });
 
+      sourceDiagnostics.push({ source, status: 'ok', emitted });
       log.info(`Source ${source} completed`, { emitted });
     } catch (error) {
+      sourceDiagnostics.push({
+        source,
+        status: 'error',
+        emitted: 0,
+        message: error.message,
+      });
       log.warning(`Source ${source} failed and was skipped: ${error.message}`);
     }
   }
 
   const counts = output.getCounts();
+  const totalItems = output.getTotal();
+
+  // Keep dataset exportable even when no listing was scraped.
+  if (totalItems === 0) {
+    await Actor.pushData({
+      recordType: 'diagnostic',
+      status: 'no_results',
+      message: 'No public items were extracted in this run. Check source restrictions, input queries, and proxy setup.',
+      generatedAt: new Date().toISOString(),
+      sources,
+      queries,
+      maxItemsPerSource,
+      sourceDiagnostics,
+    });
+  }
+
   log.info('Actor finished', {
-    totalItems: output.getTotal(),
+    totalItems,
     counts,
     maxItemsPerSource,
+    sourceDiagnostics,
   });
 
   await Actor.setValue('SUMMARY', {
     generatedAt: new Date().toISOString(),
-    totalItems: output.getTotal(),
+    totalItems,
     counts,
+    sourceDiagnostics,
     config: {
       sources,
       queries,
